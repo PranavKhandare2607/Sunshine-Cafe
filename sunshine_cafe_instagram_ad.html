@@ -1,0 +1,268 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@400;600;700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+#wrap{display:flex;justify-content:center;align-items:flex-start;padding:20px 0;gap:20px;flex-wrap:wrap}
+#phone{width:300px;height:534px;border-radius:36px;border:3px solid #1a1a1a;overflow:hidden;background:#8B0000;box-shadow:0 0 0 6px #111;flex-shrink:0;position:relative}
+#reel{width:100%;height:100%;position:relative;overflow:hidden}
+.scene{position:absolute;inset:0;opacity:0;transition:opacity 0.5s;display:flex;flex-direction:column}
+.scene.active{opacity:1}
+.scene-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 6s ease}
+.scene.active .scene-bg{transform:scale(1.06)}
+.dark-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(140,0,0,0.93) 0%,rgba(0,0,0,0.25) 50%,rgba(0,0,0,0.35) 100%)}
+.red-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(180,0,0,0.94) 0%,rgba(120,0,0,0.45) 40%,rgba(0,0,0,0.35) 100%)}
+.top-bar{position:absolute;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:12px 14px 0}
+.prog-bars{position:absolute;top:8px;left:12px;right:12px;z-index:20;display:flex;gap:3px}
+.pseg{flex:1;height:2px;background:rgba(255,255,255,0.3);border-radius:2px;overflow:hidden}
+.pfill{height:100%;background:#fff;width:0%;border-radius:2px;transition:width linear}
+.logo-chip{background:rgba(180,0,0,0.9);border:1px solid rgba(255,255,255,0.35);border-radius:20px;padding:4px 12px;display:flex;align-items:center;gap:5px}
+.logo-txt{font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;color:#fff;letter-spacing:1.5px}
+.spon{background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:2px 7px;font-family:'Poppins',sans-serif;font-size:9px;color:rgba(255,255,255,0.85);letter-spacing:1px}
+.sc{position:relative;z-index:2;width:100%;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:18px 14px}
+.badge{display:inline-block;background:#CC0000;color:#fff;font-family:'Poppins',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;padding:3px 9px;border-radius:3px;text-transform:uppercase;margin-bottom:7px;width:fit-content;border:1px solid rgba(255,180,180,0.3)}
+.st{font-family:'Playfair Display',serif;font-size:29px;color:#fff;line-height:1;margin-bottom:5px;font-weight:900}
+.sp{font-family:'Poppins',sans-serif;font-size:17px;color:#FFD700;font-weight:700;margin-bottom:3px}
+.ss{font-family:'Poppins',sans-serif;font-size:10px;color:rgba(255,255,255,0.75);letter-spacing:0.5px;line-height:1.4}
+.ic{position:relative;z-index:2;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#panel{width:220px;display:flex;flex-direction:column;gap:10px;padding-top:4px}
+.pc{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:12px 14px}
+.pl{font-size:10px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.pn{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.pd{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.dr{display:flex;flex-wrap:wrap;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--color-border-tertiary);cursor:pointer;transition:background 0.3s}
+.dot.done{background:#CC0000}
+.dot.active{background:#FF3333;box-shadow:0 0 0 2px rgba(204,0,0,0.3)}
+.cr{display:flex;gap:8px}
+.cb{flex:1;padding:8px 0;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px}
+.cb:hover{background:var(--color-background-secondary)}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.mi{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:8px 10px;display:flex;align-items:center;gap:7px}
+.mi-img{width:28px;height:28px;border-radius:6px;object-fit:cover;flex-shrink:0}
+.mi-info{}
+.mn{font-size:11px;font-weight:500;color:var(--color-text-primary);line-height:1.2}
+.mp{font-size:12px;font-weight:500;color:#CC0000}
+</style>
+
+<h2 class="sr-only">Sunshine Cafe Instagram sponsored ad preview</h2>
+<div id="wrap">
+  <div id="phone">
+    <div id="reel">
+      <div class="prog-bars" id="pb"></div>
+      <div class="top-bar">
+        <div class="logo-chip"><span class="logo-txt">SUNSHINE</span></div>
+        <span class="spon">SPONSORED</span>
+      </div>
+
+      <!-- Scene 0: Brand Intro -->
+      <div class="scene active" id="s0">
+        <div class="scene-bg" id="bg0" style="background-image:url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&q=80');background-size:cover;background-position:center;filter:brightness(0.45)"></div>
+        <div style="position:absolute;inset:0;background:rgba(139,0,0,0.55)"></div>
+        <div class="ic" style="z-index:2">
+          <div style="flex:1"></div>
+          <div style="text-align:center;padding:0 20px 40px">
+            <div style="font-family:'Playfair Display',serif;font-size:46px;color:#fff;font-weight:900;letter-spacing:4px;line-height:0.9">SUNSHINE</div>
+            <div style="width:50px;height:2px;background:#CC0000;margin:12px auto"></div>
+            <div style="font-family:'Poppins',sans-serif;font-size:10px;color:rgba(255,200,200,0.85);letter-spacing:3px;text-transform:uppercase">Eat &bull; Drink &bull; Repeat</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 1: Pizza -->
+      <div class="scene" id="s1">
+        <div class="scene-bg" id="bg1" style="background-image:url('https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80')"></div>
+        <div class="dark-ov"></div>
+        <div class="sc">
+          <span class="badge">Wood-Fired Pizza</span>
+          <div class="st">Authentic<br>Margherita</div>
+          <div class="sp">Starting ₹149</div>
+          <div class="ss">Fresh mozzarella · San Marzano tomatoes · Hand-tossed</div>
+        </div>
+      </div>
+
+      <!-- Scene 2: Burgers -->
+      <div class="scene" id="s2">
+        <div class="scene-bg" id="bg2" style="background-image:url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80')"></div>
+        <div class="red-ov"></div>
+        <div class="sc">
+          <span class="badge">Bestseller</span>
+          <div class="st">Classic<br>Burgers</div>
+          <div class="sp">Veg ₹89 · Non-Veg ₹109</div>
+          <div class="ss">Crispy patty · Fresh greens · Sunshine secret sauce</div>
+        </div>
+      </div>
+
+      <!-- Scene 3: Mocktails -->
+      <div class="scene" id="s3">
+        <div class="scene-bg" id="bg3" style="background-image:url('https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&q=80')"></div>
+        <div class="dark-ov"></div>
+        <div class="sc">
+          <span class="badge">Refreshing Sips</span>
+          <div class="st">Signature<br>Mocktails</div>
+          <div class="sp">From ₹79</div>
+          <div class="ss">Seasonal fruits · Freshly blended · Instagram-worthy</div>
+        </div>
+      </div>
+
+      <!-- Scene 4: Desserts -->
+      <div class="scene" id="s4">
+        <div class="scene-bg" id="bg4" style="background-image:url('https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&q=80')"></div>
+        <div class="red-ov"></div>
+        <div class="sc">
+          <span class="badge">Sweet Indulgence</span>
+          <div class="st">Chocolate<br>Desserts</div>
+          <div class="sp">From ₹59</div>
+          <div class="ss">Warm molten lava cake · Rich chocolate · Pure bliss</div>
+        </div>
+      </div>
+
+      <!-- Scene 5: Cookies -->
+      <div class="scene" id="s5">
+        <div class="scene-bg" id="bg5" style="background-image:url('https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&q=80')"></div>
+        <div class="dark-ov"></div>
+        <div class="sc">
+          <span class="badge">Freshly Baked</span>
+          <div class="st">House<br>Cookies</div>
+          <div class="sp">2 for ₹49</div>
+          <div class="ss">Choco chip · Baked daily · Warm &amp; crispy</div>
+        </div>
+      </div>
+
+      <!-- Scene 6: Coffee -->
+      <div class="scene" id="s6">
+        <div class="scene-bg" id="bg6" style="background-image:url('https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80')"></div>
+        <div class="red-ov"></div>
+        <div class="sc">
+          <span class="badge">Brew Specials</span>
+          <div class="st">Cold Brew<br>Coffee</div>
+          <div class="sp">From ₹69</div>
+          <div class="ss">Cold brew · Creamy &amp; smooth · Perfect any time</div>
+        </div>
+      </div>
+
+      <!-- Scene 7: CTA -->
+      <div class="scene" id="s7">
+        <div class="scene-bg" id="bg7" style="background-image:url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80');filter:brightness(0.35)"></div>
+        <div style="position:absolute;inset:0;background:rgba(139,0,0,0.62)"></div>
+        <div class="sc" style="justify-content:center;align-items:center;text-align:center">
+          <div style="font-family:'Playfair Display',serif;font-size:24px;color:#fff;font-weight:900;margin-bottom:6px">Eat. Drink.<br>Repeat.</div>
+          <div style="font-family:'Poppins',sans-serif;font-size:9px;color:rgba(255,210,210,0.85);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px">Sunshine Cafe</div>
+          <button style="background:#CC0000;color:#fff;font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;padding:9px 20px;border-radius:22px;text-transform:uppercase;border:none;cursor:pointer">Visit Today</button>
+          <div style="font-family:'Poppins',sans-serif;font-size:8px;color:rgba(255,255,255,0.55);margin-top:10px;line-height:1.6">Sunshine Cafe · Eat · Drink · Repeat</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel">
+    <div class="pc">
+      <div class="pl">Now playing</div>
+      <div class="pn" id="pname">Opening</div>
+      <div class="pd" id="pdesc">Sunshine Cafe intro</div>
+    </div>
+    <div class="pc">
+      <div class="pl">Scenes</div>
+      <div class="dr" id="dots"></div>
+    </div>
+    <div class="cr">
+      <button class="cb" id="playbtn">⏸ <span id="plbl">Pause</span></button>
+      <button class="cb" id="nextbtn">⏭ Next</button>
+    </div>
+    <div class="pc">
+      <div class="pl">Menu Highlights</div>
+      <div class="mg">
+        <div class="mi">
+          <img class="mi-img" src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=60&q=80" alt="Pizza">
+          <div class="mi-info"><div class="mn">Pizza</div><div class="mp">₹149+</div></div>
+        </div>
+        <div class="mi">
+          <img class="mi-img" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=60&q=80" alt="Burgers">
+          <div class="mi-info"><div class="mn">Burgers</div><div class="mp">₹89+</div></div>
+        </div>
+        <div class="mi">
+          <img class="mi-img" src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=60&q=80" alt="Mocktails">
+          <div class="mi-info"><div class="mn">Mocktails</div><div class="mp">₹79+</div></div>
+        </div>
+        <div class="mi">
+          <img class="mi-img" src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=60&q=80" alt="Desserts">
+          <div class="mi-info"><div class="mn">Desserts</div><div class="mp">₹59+</div></div>
+        </div>
+        <div class="mi">
+          <img class="mi-img" src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=60&q=80" alt="Cookies">
+          <div class="mi-info"><div class="mn">Cookies</div><div class="mp">2 for ₹49</div></div>
+        </div>
+        <div class="mi">
+          <img class="mi-img" src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=60&q=80" alt="Coffee">
+          <div class="mi-info"><div class="mn">Coffee</div><div class="mp">₹69+</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SD=[
+  {name:'Opening',desc:'Sunshine Cafe intro'},
+  {name:'Pizza',desc:'Authentic Margherita from ₹149'},
+  {name:'Burgers',desc:'Veg ₹89 · Non-Veg ₹109'},
+  {name:'Mocktails',desc:'Signature drinks from ₹79'},
+  {name:'Desserts',desc:'Chocolate treats from ₹59'},
+  {name:'Cookies',desc:'Fresh baked 2 for ₹49'},
+  {name:'Iced Coffee',desc:'Cold brew from ₹69'},
+  {name:'CTA',desc:'Visit Sunshine Cafe today'}
+];
+const DUR=3200;
+let cur=0,playing=true,timer=null;
+const scenes=document.querySelectorAll('.scene');
+const pb=document.getElementById('pb');
+const dotWrap=document.getElementById('dots');
+let fills=[],dots=[];
+
+SD.forEach((_,i)=>{
+  const seg=document.createElement('div');seg.className='pseg';
+  const fill=document.createElement('div');fill.className='pfill';
+  seg.appendChild(fill);pb.appendChild(seg);fills.push(fill);
+  const d=document.createElement('div');d.className='dot';
+  d.onclick=()=>goTo(i);dotWrap.appendChild(d);dots.push(d);
+});
+
+function goTo(i){
+  scenes[cur].classList.remove('active');
+  dots[cur].classList.remove('active');
+  fills[cur].style.transition='none';
+  fills[cur].style.width=i>cur?'100%':'0%';
+  if(i>cur)dots[cur].classList.add('done');
+  else dots[cur].classList.remove('done');
+  cur=i;
+  scenes[cur].classList.add('active');
+  dots.forEach((d,j)=>{d.classList.remove('active','done');if(j<cur)d.classList.add('done');});
+  dots[cur].classList.add('active');
+  document.getElementById('pname').textContent=SD[cur].name;
+  document.getElementById('pdesc').textContent=SD[cur].desc;
+  fills[cur].style.transition='none';fills[cur].style.width='0%';
+  clearTimeout(timer);
+  if(playing)startProg();
+}
+
+function startProg(){
+  const f=fills[cur];
+  f.style.transition=`width ${DUR}ms linear`;
+  requestAnimationFrame(()=>{f.style.width='100%';});
+  timer=setTimeout(()=>{goTo((cur+1)%SD.length);},DUR);
+}
+
+document.getElementById('playbtn').onclick=()=>{
+  playing=!playing;
+  const lbl=document.getElementById('plbl');
+  const btn=document.getElementById('playbtn');
+  if(playing){lbl.textContent='Pause';btn.childNodes[0].textContent='⏸ ';startProg();}
+  else{
+    lbl.textContent='Play';btn.childNodes[0].textContent='▶ ';clearTimeout(timer);
+    const f=fills[cur];const w=getComputedStyle(f).width;const pw=getComputedStyle(f.parentElement).width;
+    const pct=(parseFloat(w)/parseFloat(pw))*100;
+    f.style.transition='none';f.style.width=pct+'%';
+  }
+};
+document.getElementById('nextbtn').onclick=()=>goTo((cur+1)%SD.length);
+goTo(0);
+</script>
